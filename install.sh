@@ -38,7 +38,7 @@ read -p "Please input your web password：" webpasswd
 read -p "Please input your web port：" webport
 
 #Install SSR (Powered By Teddysun : https://shadowsocks.be/9.html)
-wget -N --no-check-certificate https://raw.githubusercontent.com/ai2c133/SWEB/master/ssr.sh
+wget -N --no-check-certificate https://raw.githubusercontent.com/ai2c133/SWEB/master/ssr/ssr.sh
 chmod +x ssr.sh
 bash ssr.sh
 rm -rf ssr.sh
