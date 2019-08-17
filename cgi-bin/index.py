@@ -27,7 +27,7 @@ html = '''
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand" href="#">SWEB管理面板</a></div>
+      <a class="navbar-brand" href="index.py">SWEB管理面板</a></div>
     
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -121,7 +121,7 @@ html = '''
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <p>Copyright © FunctionClub. All rights reserved.</p>
+        <p>Copyright © SWEB. All rights reserved.</p>
       </div>
     </div>
   </div>

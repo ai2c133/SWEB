@@ -10,13 +10,10 @@ html = '''
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SWEB管理面板 - 软件下载</title>
-
 <!-- Bootstrap -->
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css">
-
 <!-- FontAwesome -->
 <link rel="stylesheet" href="/css/font-awesome.css">
-
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -30,7 +27,7 @@ html = '''
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand" href="#">SWEB管理面板</a></div>
+      <a class="navbar-brand" href="index.py">SWEB管理面板</a></div>
     
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -63,12 +60,8 @@ html = '''
   </div>
   <!-- /.container-fluid --> 
 </nav>
-
 <!-- HEADER --><!-- / HEADER --> 
-
-
 <div id="download" class="container">
-
      <div class="col-md-4">
      	<h3><i class="fa fa-windows fa-3x"></i> &nbsp; Windows</h3><p><strong>图形客户端</strong></p><ul><li>ShadowsocksR: <a href="https://github.com/shadowsocksrr/shadowsocksr-csharp/releases">点击下载</a></li></ul>
      </div>
@@ -78,9 +71,7 @@ html = '''
       <div class="col-md-4">
      	<div class="one-third column"><h3><i class="fa fa-linux fa-3x"></i> &nbsp; Linux</h3><p><strong>图形客户端</strong></p><ul><li>Shadowsocks-Qt5: <a href="https://github.com/shadowsocks/shadowsocks-qt5/wiki/Installation">GitHub</a></li></ul><p><strong>命令行工具</strong></p><ul><li><code>pip install shadowsocks</code></li><li><code>apt-get install shadowsocks-libev</code></li><li><code>cpan Net::Shadowsocks</code></li></ul></div>
      </div><br>
-
      <p class="sixteen columns"></p>
-
               <div class="col-md-4">
      <div class="one-third column last"><h3><i class="fa fa-android fa-3x"></i> &nbsp; Android</h3><ul><li>Shadowsocksr-Android:<ul><li><a href="https://github.com/shadowsocks/shadowsocks-android/releases">点击下载</a> </li></ul></li></ul></div>
      </div>
@@ -91,16 +82,12 @@ html = '''
      	<div class="one-third column last"><h3><i class="fa fa-rss fa-flip-horizontal fa-3x"></i> &nbsp; OpenWRT</h3><ul><li>Shadowsocks-libev</li><ul><li><code>opkg install shadowsocks-libev</code></li></ul><li>Shadowsocks-libev-polarssl</li><ul><li><code>opkg install shadowsocks-libev-polarssl</code></li></ul></ul></div>
      </div>
 	</div>
-
-
-
-
 <!--  FOOTER --> 
 <footer class="text-center">
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <p>Copyright © FunctionClub. All rights reserved.</p>
+        <p>Copyright © SWEB. All rights reserved.</p>
       </div>
     </div>
   </div>
