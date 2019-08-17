@@ -85,6 +85,7 @@ html = '''
         <div class="col-md-3">
         <strong>加密方式:</strong><br><select name="setmethod" class="trololo" style="background-color: rgb(255, 255, 255); color: rgb(85, 85, 85); padding: 4px; border: 1px solid rgb(204, 204, 204); font-size: 16px;" data-enpassid="__813">
             <option>%s</option>
+            <option>none</option>            
             <option>aes-256-cfb</option>
             <option>aes-128-cfb</option>
             <option>rc4-md5</option>
@@ -93,6 +94,7 @@ html = '''
             <option>chacha20</option>
             <option>chacha20-ietf</option>
             <option>salsa20</option>
+
           </select><br><br>
 			<strong>协议方式:</strong><br><select name="setprotocol" class="trololo" style="background-color: rgb(255, 255, 255); color: rgb(85, 85, 85); padding: 4px; border: 1px solid rgb(204, 204, 204); font-size: 16px;" data-enpassid="__813">
             <option>%s</option>
@@ -102,13 +104,17 @@ html = '''
             <option>verify_deflate</option>
             <option>auth_aes128_sha1</option>
             <option>auth_aes128_md5</option>
+            <option>auth_chain_a</option>
+            <option>auth_chain_b</option>            
           </select><br><br>
           <strong>混淆方式:</strong><br><select name="setobfs" class="trololo" style="background-color: rgb(255, 255, 255); color: rgb(85, 85, 85); padding: 4px; border: 1px solid rgb(204, 204, 204); font-size: 16px;" data-enpassid="__813">
 			<option>%s</option>
             <option>plain</option>
             <option>http_simple</option>
             <option>http_post</option>
+            <option>random_head</option>
             <option>tls1.2_ticket_auth</option>
+            <option>tls1.2_ticket_fastauth</option>
           </select>
         </div>
         <div class="col-md-3">
