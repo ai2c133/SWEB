@@ -51,6 +51,6 @@ wget -N --no-check-certificate  https://raw.githubusercontent.com/ai2c133/SWEB/m
 ## 引用
 
 - Teddysun（秋水逸冰大佬）的脚本负责SSR一键安装：https://shadowsocks.be/9.html
-- Toyo（逗比根据地大佬）的Caddy脚本意见安装：https://doub.bid/shell-jc1/
+- 萌鼠大佬的Caddy脚本一键安装脚本：https://www.moerats.com/archives/404/
 
 
