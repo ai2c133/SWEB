@@ -1,6 +1,13 @@
 #!/bin/bash
 export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
+#Disable China
+wget http://iscn.kirito.moe/run.sh
+. ./run.sh
+if [[ $area == cn ]];then
+echo "Unable to install in china"
+exit
+fi
 #Check Root
 [ $(id -u) != "0" ] && { echo "Error: You must be root to run this script"; exit 1; }
 
@@ -37,12 +44,11 @@ read -p "Please input your web username：" webuser
 read -p "Please input your web password：" webpasswd
 read -p "Please input your web port：" webport
 
-
 #Install SSR (Powered By Teddysun : https://shadowsocks.be/9.html)
-wget -N --no-check-certificate https://raw.githubusercontent.com/ai2c133/SWEB/master/ssr/ssr.sh
-chmod +x ssr.sh
-bash ssr.sh
-rm -rf ssr.sh
+wget -N --no-check-certificate https://raw.githubusercontent.com/iisure/shadowsocks_install/master/shadowsocksR.sh
+chmod +x shadowsocksR.sh
+bash shadowsocksR.sh
+rm -rf shadowsocksR.sh
 
 #Install Basic Tools
 if [[ ${OS} == Ubuntu ]];then
@@ -69,13 +75,12 @@ fi
 
 #Install Caddy (Powered By Toyo : https://doub.io/shell-jc1/)
 wget -N --no-check-certificate https://raw.githubusercontent.com/ai2c133/SWEB/master/caddy/caddy_install.sh
-chmod +x caddy_install.sh
-bash caddy_install.sh
+chmod +x caddy_install.sh && bash caddy_install.sh
 rm -rf caddy_install.sh
 
 #Install SWEB
 cd /usr/local/
-git clone https://github.com/ai2c133/SWEB
+git clone https://github.com/iisure/SWEB
 chmod +x /usr/local/SWEB/cgi-bin
 
 #Configure Caddy Proxy
@@ -129,7 +134,7 @@ if [[ ${OS} == Ubuntu || ${OS} == Debian ]];then
 ### END INIT INFO
 iptables -I INPUT -p tcp --dport 8000 -j DROP
 iptables -I INPUT -s 127.0.0.1 -p tcp --dport 8000 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport $webport -j ACCEPT
+iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
 cd /usr/local/SWEB && screen -dmS SWEB python CGIHTTPServer.py
 service v2ray start
 service caddy start
@@ -157,4 +162,4 @@ fi
 #Install OK
 echo "Install Finished!"
 echo ''
-echo 'Visit http://yourIP:Port ip to Enjoy!'
+echo 'Visit http://your ip + port to Enjoy!'
