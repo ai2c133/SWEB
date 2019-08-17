@@ -19,6 +19,11 @@ echo "# Github: https://github.com/shadowsocksr/shadowsocksr      #"
 echo "#############################################################"
 echo
 
+libsodium_file="libsodium-1.0.16"
+libsodium_url="https://github.com/jedisct1/libsodium/releases/download/1.0.16/libsodium-1.0.16.tar.gz"
+shadowsocks_r_file="shadowsocksr-3.2.2"
+shadowsocks_r_url="https://github.com/shadowsocksrr/shadowsocksr/archive/3.2.2.tar.gz"
+
 #Current folder
 cur_dir=`pwd`
 # Stream Ciphers
@@ -35,12 +40,14 @@ aes-192-ctr
 aes-128-ctr
 chacha20-ietf
 chacha20
+salsa20
+xchacha20
+xsalsa20
 rc4-md5
-rc4-md5-6
 )
 # Reference URL:
-# https://github.com/breakwa11/shadowsocks-rss/blob/master/ssr.md
-# https://github.com/breakwa11/shadowsocks-rss/wiki/config.json
+# https://github.com/shadowsocksr-rm/shadowsocks-rss/blob/master/ssr.md
+# https://github.com/shadowsocksrr/shadowsocksr/commit/a3cf0254508992b7126ab1151df0c2f10bf82680
 # Protocol
 protocols=(
 origin
@@ -51,6 +58,10 @@ auth_aes128_md5
 auth_aes128_sha1
 auth_chain_a
 auth_chain_b
+auth_chain_c
+auth_chain_d
+auth_chain_e
+auth_chain_f
 )
 # obfs
 obfs=(
@@ -92,34 +103,34 @@ check_sys(){
     if [[ -f /etc/redhat-release ]]; then
         release="centos"
         systemPackage="yum"
-    elif cat /etc/issue | grep -Eqi "debian"; then
+    elif grep -Eqi "debian" /etc/issue; then
         release="debian"
         systemPackage="apt"
-    elif cat /etc/issue | grep -Eqi "ubuntu"; then
+    elif grep -Eqi "ubuntu" /etc/issue; then
         release="ubuntu"
         systemPackage="apt"
-    elif cat /etc/issue | grep -Eqi "centos|red hat|redhat"; then
+    elif grep -Eqi "centos|red hat|redhat" /etc/issue; then
         release="centos"
         systemPackage="yum"
-    elif cat /proc/version | grep -Eqi "debian"; then
+    elif grep -Eqi "debian" /proc/version; then
         release="debian"
         systemPackage="apt"
-    elif cat /proc/version | grep -Eqi "ubuntu"; then
+    elif grep -Eqi "ubuntu" /proc/version; then
         release="ubuntu"
         systemPackage="apt"
-    elif cat /proc/version | grep -Eqi "centos|red hat|redhat"; then
+    elif grep -Eqi "centos|red hat|redhat" /proc/version; then
         release="centos"
         systemPackage="yum"
     fi
 
-    if [[ ${checkType} == "sysRelease" ]]; then
-        if [ "$value" == "$release" ]; then
+    if [[ "${checkType}" == "sysRelease" ]]; then
+        if [ "${value}" == "${release}" ]; then
             return 0
         else
             return 1
         fi
-    elif [[ ${checkType} == "packageManager" ]]; then
-        if [ "$value" == "$systemPackage" ]; then
+    elif [[ "${checkType}" == "packageManager" ]]; then
+        if [ "${value}" == "${systemPackage}" ]; then
             return 0
         else
             return 1
@@ -183,7 +194,7 @@ pre_install(){
         exit 1
     fi
     # Set ShadowsocksR config password
-    echo "Please input password for ShadowsocksR:"
+    echo "Please enter password for ShadowsocksR:"
     read -p "(Default password: teddysun.com):" shadowsockspwd
     [ -z "${shadowsockspwd}" ] && shadowsockspwd="teddysun.com"
     echo
@@ -194,24 +205,22 @@ pre_install(){
     # Set ShadowsocksR config port
     while true
     do
-    echo -e "Please input port for ShadowsocksR [1-65535]:"
-    read -p "(Default port: 8989):" shadowsocksport
-    [ -z "${shadowsocksport}" ] && shadowsocksport="8989"
+    dport=$(shuf -i 9000-19999 -n 1)
+    echo -e "Please enter a port for ShadowsocksR [1-65535]"
+    read -p "(Default port: ${dport}):" shadowsocksport
+    [ -z "${shadowsocksport}" ] && shadowsocksport=${dport}
     expr ${shadowsocksport} + 1 &>/dev/null
     if [ $? -eq 0 ]; then
-        if [ ${shadowsocksport} -ge 1 ] && [ ${shadowsocksport} -le 65535 ]; then
+        if [ ${shadowsocksport} -ge 1 ] && [ ${shadowsocksport} -le 65535 ] && [ ${shadowsocksport:0:1} != 0 ]; then
             echo
             echo "---------------------------"
             echo "port = ${shadowsocksport}"
             echo "---------------------------"
             echo
             break
-        else
-            echo -e "[${red}Error${plain}] Input error, please input a number between 1 and 65535"
         fi
-    else
-        echo -e "[${red}Error${plain}] Input error, please input a number between 1 and 65535"
     fi
+    echo -e "[${red}Error${plain}] Please enter a correct number [1-65535]"
     done
 
     # Set shadowsocksR config stream ciphers
@@ -226,11 +235,11 @@ pre_install(){
     [ -z "$pick" ] && pick=2
     expr ${pick} + 1 &>/dev/null
     if [ $? -ne 0 ]; then
-        echo -e "[${red}Error${plain}] Input error, please input a number"
+        echo -e "[${red}Error${plain}] Please enter a number"
         continue
     fi
     if [[ "$pick" -lt 1 || "$pick" -gt ${#ciphers[@]} ]]; then
-        echo -e "[${red}Error${plain}] Input error, please input a number between 1 and ${#ciphers[@]}"
+        echo -e "[${red}Error${plain}] Please enter a number between 1 and ${#ciphers[@]}"
         continue
     fi
     shadowsockscipher=${ciphers[$pick-1]}
@@ -314,12 +323,12 @@ pre_install(){
 # Download files
 download_files(){
     # Download libsodium file
-    if ! wget --no-check-certificate -O libsodium-1.0.13.tar.gz https://github.com/jedisct1/libsodium/releases/download/1.0.13/libsodium-1.0.13.tar.gz; then
-        echo -e "[${red}Error${plain}] Failed to download libsodium-1.0.13.tar.gz!"
+    if ! wget --no-check-certificate -O ${libsodium_file}.tar.gz ${libsodium_url}; then
+        echo -e "[${red}Error${plain}] Failed to download ${libsodium_file}.tar.gz!"
         exit 1
     fi
     # Download ShadowsocksR file
-    if ! wget --no-check-certificate -O manyuser.zip https://github.com/teddysun/shadowsocksr/archive/manyuser.zip; then
+    if ! wget --no-check-certificate -O ${shadowsocks_r_file}.tar.gz ${shadowsocks_r_url}; then
         echo -e "[${red}Error${plain}] Failed to download ShadowsocksR file!"
         exit 1
     fi
@@ -339,7 +348,7 @@ download_files(){
 
 # Firewall set
 firewall_set(){
-    echo "firewall set start..."
+    echo -e "[${green}Info${plain}] firewall set start..."
     if centosversion 6; then
         /etc/init.d/iptables status > /dev/null 2>&1
         if [ $? -eq 0 ]; then
@@ -350,7 +359,7 @@ firewall_set(){
                 /etc/init.d/iptables save
                 /etc/init.d/iptables restart
             else
-                echo "port ${shadowsocksport} has been set up."
+                echo -e "[${green}Info${plain}] port ${shadowsocksport} has been set up."
             fi
         else
             echo -e "[${yellow}Warning${plain}] iptables looks like shutdown or not installed, please manually set it if necessary."
@@ -362,18 +371,10 @@ firewall_set(){
             firewall-cmd --permanent --zone=public --add-port=${shadowsocksport}/udp
             firewall-cmd --reload
         else
-            echo "Firewalld looks like not running, try to start..."
-            systemctl start firewalld
-            if [ $? -eq 0 ]; then
-                firewall-cmd --permanent --zone=public --add-port=${shadowsocksport}/tcp
-                firewall-cmd --permanent --zone=public --add-port=${shadowsocksport}/udp
-                firewall-cmd --reload
-            else
-                echo -e "[${yellow}Warning${plain}] Try to start firewalld failed. please enable port ${shadowsocksport} manually if necessary."
-            fi
+            echo -e "[${yellow}Warning${plain}] firewalld looks like not running or not installed, please enable port ${shadowsocksport} manually if necessary."
         fi
     fi
-    echo "firewall set completed..."
+    echo -e "[${green}Info${plain}] firewall set completed..."
 }
 
 # Config ShadowsocksR
@@ -392,6 +393,8 @@ config_shadowsocks(){
     "protocol_param":"",
     "obfs":"${shadowsockobfs}",
     "obfs_param":"",
+    "speed_limit_per_con": 0, 
+    "speed_limit_per_user": 0,
     "redirect":"",
     "dns_ipv6":false,
     "fast_open":false,
@@ -405,8 +408,8 @@ install(){
     # Install libsodium
     if [ ! -f /usr/lib/libsodium.a ]; then
         cd ${cur_dir}
-        tar zxf libsodium-1.0.13.tar.gz
-        cd libsodium-1.0.13
+        tar zxf ${libsodium_file}.tar.gz
+        cd ${libsodium_file}
         ./configure --prefix=/usr && make && make install
         if [ $? -ne 0 ]; then
             echo -e "[${red}Error${plain}] libsodium install failed!"
@@ -418,8 +421,8 @@ install(){
     ldconfig
     # Install ShadowsocksR
     cd ${cur_dir}
-    unzip -q manyuser.zip
-    mv shadowsocksr-manyuser/shadowsocks /usr/local/
+    tar zxf ${shadowsocks_r_file}.tar.gz
+    mv ${shadowsocks_r_file}/shadowsocks /usr/local/
     if [ -f /usr/local/shadowsocks/server.py ]; then
         chmod +x /etc/init.d/shadowsocks
         if check_sys packageManager yum; then
@@ -453,7 +456,7 @@ install(){
 # Install cleanup
 install_cleanup(){
     cd ${cur_dir}
-    rm -rf manyuser.zip shadowsocksr-manyuser libsodium-1.0.13.tar.gz libsodium-1.0.13
+    rm -rf ${shadowsocks_r_file}.tar.gz ${shadowsocks_r_file} ${libsodium_file}.tar.gz ${libsodium_file}
 }
 
 
