@@ -38,10 +38,10 @@ read -p "Please input your web password：" webpasswd
 read -p "Please input your web port：" webport
 
 #Install SSR (Powered By Teddysun : https://shadowsocks.be/9.html)
-wget -N --no-check-certificate https://raw.githubusercontent.com/iisure/shadowsocks_install/master/shadowsocksR.sh
-chmod +x shadowsocksR.sh
-bash shadowsocksR.sh
-rm -rf shadowsocksR.sh
+wget -N --no-check-certificate https://raw.githubusercontent.com/ai2c133/SWEB/master/ssr.sh
+chmod +x ssr.sh
+bash ssr.sh
+rm -rf ssr.sh
 
 #Install Basic Tools
 if [[ ${OS} == Ubuntu ]];then
