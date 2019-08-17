@@ -157,4 +157,4 @@ fi
 #Install OK
 echo "Install Finished!"
 echo ''
-echo 'Visit http://your:$webport ip to Enjoy!'
+echo 'Visit http://yourIP:Port ip to Enjoy!'
