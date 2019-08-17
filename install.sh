@@ -35,6 +35,7 @@ echo "Let's Setup the Username and Password for your webpanel'"
 
 read -p "Please input your web username：" webuser
 read -p "Please input your web password：" webpasswd
+read -p "Please input your domain or IP：" web
 read -p "Please input your web port：" webport
 
 #Install SSR (Powered By Teddysun : https://shadowsocks.be/9.html)
@@ -77,7 +78,7 @@ git clone https://github.com/iisure/SWEB
 chmod +x /usr/local/SWEB/cgi-bin
 
 #Configure Caddy Proxy
-echo ":$webport {
+echo "http://$web:$webport {
  basicauth / $webuser $webpasswd
  proxy / http://127.0.0.1:8000
 }" > /usr/local/caddy/Caddyfile
