@@ -105,8 +105,7 @@ html='''
         <li> </li>
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">菜单 <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="https://github.com/FunctionClub/SWEB">关于</a> </li>
-            <li><a href="support.py">支持赞助</a> </li>
+            <li><a href="https://github.com/ai2c133/SWEB">关于</a> </li>
           </ul>
         </li>
       </ul>
