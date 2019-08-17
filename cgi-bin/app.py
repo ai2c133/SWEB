@@ -71,10 +71,10 @@ html = '''
 <div id="download" class="container">
 
      <div class="col-md-4">
-     	<h3><i class="fa fa-windows fa-3x"></i> &nbsp; Windows</h3><p><strong>图形客户端</strong></p><ul><li>ShadowsocksR: <a href="https://github.com/shadowsocksr/shadowsocksr-csharp/releases">点击下载</a></li></ul>
+     	<h3><i class="fa fa-windows fa-3x"></i> &nbsp; Windows</h3><p><strong>图形客户端</strong></p><ul><li>ShadowsocksR: <a href="https://github.com/shadowsocksrr/shadowsocksr-csharp/releases">点击下载</a></li></ul>
      </div>
       <div class="col-md-4">
-     	<div class="one-third column"><h3><i class="fa fa-apple fa-3x"></i> &nbsp; Mac OS X</h3><p><strong>图形客户端</strong></p><ul><li>ShadowsocksX-NG: <a href="https://github.com/shadowsocksr/ShadowsocksX-NG/releases">点击下载</a></li></ul><p><strong>命令行工具</strong></p><ul><li><code>pip install shadowsocks</code></li><li><code>brew install shadowsocks-libev</code></li><li><code>cpan Net::Shadowsocks</code></li></ul></div>
+     	<div class="one-third column"><h3><i class="fa fa-apple fa-3x"></i> &nbsp; Mac OS X</h3><p><strong>图形客户端</strong></p><ul><li>ShadowsocksX-NG: <a href="https://github.com/shadowsocks/ShadowsocksX-NG/releases">点击下载</a></li></ul><p><strong>命令行工具</strong></p><ul><li><code>pip install shadowsocks</code></li><li><code>brew install shadowsocks-libev</code></li><li><code>cpan Net::Shadowsocks</code></li></ul></div>
      </div>
       <div class="col-md-4">
      	<div class="one-third column"><h3><i class="fa fa-linux fa-3x"></i> &nbsp; Linux</h3><p><strong>图形客户端</strong></p><ul><li>Shadowsocks-Qt5: <a href="https://github.com/shadowsocks/shadowsocks-qt5/wiki/Installation">GitHub</a></li></ul><p><strong>命令行工具</strong></p><ul><li><code>pip install shadowsocks</code></li><li><code>apt-get install shadowsocks-libev</code></li><li><code>cpan Net::Shadowsocks</code></li></ul></div>
@@ -83,7 +83,7 @@ html = '''
      <p class="sixteen columns"></p>
 
               <div class="col-md-4">
-     <div class="one-third column last"><h3><i class="fa fa-android fa-3x"></i> &nbsp; Android</h3><ul><li>Shadowsocksr-Android:<ul><li><a href="https://github.com/shadowsocksr/shadowsocksr-android/releases">点击下载</a> </li></ul></li></ul></div>
+     <div class="one-third column last"><h3><i class="fa fa-android fa-3x"></i> &nbsp; Android</h3><ul><li>Shadowsocksr-Android:<ul><li><a href="https://github.com/shadowsocks/shadowsocks-android/releases">点击下载</a> </li></ul></li></ul></div>
      </div>
               <div class="col-md-4">
      	<div class="one-third column last"><h3><i class="fa fa-apple fa-3x"></i> &nbsp; iOS</h3><ul><li>ShadowRocket:<ul><li><a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118">App Store</a></li></ul></li><li>越狱版:<ul><li><a href="http://apt.thebigboss.org/onepackage.php?bundleid=com.linusyang.shadowsocks">Big Boss</a></li></ul></li></ul></div>
